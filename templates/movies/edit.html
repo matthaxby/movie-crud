@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Movie</title>
+</head>
+<body>
+  {{#movies}}
+  <form action="/movies/{{_id}}/update" method="post">
+    <input type="text" name="title" value="{{title}}">
+    <input type="submit" value="SAVE">
+  </form>
+  {{/movies}}
+</body>
+</html>

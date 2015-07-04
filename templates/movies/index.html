@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Haxby Movie Intl</title>
+</head>
+<body>
+  <header>
+    <h2>Matt's Movies</h2>
+  </header>
+  {{#movies}}
+  <div>
+    <a href="/movies/{{_id}}">{{title}}</a>
+    <form action="/movies/{{_id}}/edit" method="GET">
+      <input type="submit" value="EDIT">
+    </form>
+  </div>
+  {{/movies}}
+  <form action="/movies/new">
+    <input type="submit" value="Add a Movie!">
+  </form>
+</body>
+</html>
