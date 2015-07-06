@@ -6,6 +6,14 @@ var routes = require('i40')(),
     view = require('./view'),
     mime = require('mime')
 
+routes.addRoute('/', (req, res, url) => {
+  res.setHeader('Content-Type', 'text/html')
+  if (req.method === 'GET') {
+    var template = view.render('/movies/home', {})
+    res.end(template)
+  }
+})
+
 routes.addRoute('/movies', (req, res, url) => {
   res.setHeader('Content-Type', 'text/html')
   if (req.method === 'GET') {
@@ -63,12 +71,10 @@ routes.addRoute('/movies/:id/edit', (req, res, url) => {
 routes.addRoute('/movies/:id/update', (req, res, url) => {
   if (req.method === 'POST') {
     var data = ''
-    console.log('starting')
-    res.on('data', function(chunk) {
+    req.on('data', function(chunk) {
       data += chunk
-      console.log('W(hy)TF DONT YOU LOG?!')
     })
-    res.on('end', function() {
+    req.on('end', function() {
       var movie = qs.parse(data)
       var updateMovie = movies.update({_id: url.params.id}, movie)
       updateMovie.on('success', function(err, docs) {
@@ -78,5 +84,27 @@ routes.addRoute('/movies/:id/update', (req, res, url) => {
     })
   }
 })
+
+routes.addRoute('/movies/:id/delete', (req, res, url) => {
+  if (req.method === 'POST') {
+    movies.remove({_id: url.params.id}, function(err) {
+      if (err) res.end('404')
+      res.writeHead(302, {'Location': '/movies'})
+      res.end()
+    })
+  }
+})
+
+routes.addRoute('/public/*', (req, res, url) => {
+  res.setHeader('Content-Type', mime.lookup(req.url))
+  fs.readFile('.' + req.url, function(err, file) {
+    if (err) {
+      res.setHeader('Content-Type', 'text/html')
+      res.end('404')
+    }
+    res.end(file)
+  })
+})
+
 
 module.exports = routes

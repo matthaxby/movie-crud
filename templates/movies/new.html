@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>hello?</title>
+  <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
   <h1>Make a new one</h1>
   <form action="/movies" method="post">
     <input type="text" name="title" placeholder="title">
+    <input type="text" name="director" placeholder="director">
+    <input type="text" name="year" placeholder="year">
+    <input type="text" name="poster" placeholder="poster url">
+    <input type="radio" name="rating" class="radio" value="1">
+    <input type="radio" name="rating" class="radio" value="2">
+    <input type="radio" name="rating" class="radio" value="3">
+    <input type="radio" name="rating" class="radio" value="4">
+    <input type="radio" name="rating" class="radio" value="5">
     <input type="submit" value="ADD MOVIE">
   </form>
 

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Haxby Movie Intl</title>
+  <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
   <header>
@@ -10,9 +11,12 @@
   </header>
   {{#movies}}
   <div>
-    <a href="/movies/{{_id}}">{{title}}</a>
+    <a href="/movies/{{_id}}">{{title}} Rating: {{rating}}</a>
     <form action="/movies/{{_id}}/edit" method="GET">
       <input type="submit" value="EDIT">
+    </form>
+    <form action="/movies/{{_id}}/delete" method="post">
+      <input type="submit" value="DELETE">
     </form>
   </div>
   {{/movies}}
